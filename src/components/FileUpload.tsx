@@ -4,7 +4,7 @@ interface FileUploadProps {
     onUpload: ((files: FileList) => void)
 }
 
-export const FileUpload:React.FC<FileUploadProps> = ({onUpload}) => {
+const FileUpload:React.FC<FileUploadProps> = ({onUpload}) => {
 
     const [fileInput, setFileInput] = useState<HTMLInputElement>();
 
@@ -31,3 +31,5 @@ export const FileUpload:React.FC<FileUploadProps> = ({onUpload}) => {
         </form>
     );
 }
+
+export default FileUpload;

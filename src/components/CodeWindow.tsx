@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-java';
-import 'prismjs/components/';
+//import 'prismjs/plugins/line-numbers';
 import '../prism/prism.css';
 
 interface CodeProps {
@@ -12,7 +12,7 @@ interface CodeProps {
 const CodeWindow:React.FC<CodeProps> = (props) => {
 
     useEffect(() => {
-        console.log("effecting");
+        console.log("effecting CodeWindow.props->"+props);
         //Prism.highlightAll();
         setTimeout(() => Prism.highlightElement(document.getElementById("code")!), 0)
       }, [props]);

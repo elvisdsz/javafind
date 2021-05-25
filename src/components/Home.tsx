@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CodeWindow from './CodeWindow';
-import { FileUpload } from './FileUpload';
-import { handleZip } from './zip_handlers';
+import FileUpload from './FileUpload';
+import FolderTree from './FolderTree';
 
 function Home() {
 
@@ -9,7 +9,7 @@ function Home() {
     const xmlCode = `<xml a="43"></xml>`;
 
     const [codeText, setCodeText] = useState<string>("import java.io.File;\nimport java.utils.List;\n\npublic class JavaApp {\n\tprivate int i = 20\n}\n");
-
+    const [mainFile, setMainFile] = useState<File>();
     
     const onFileSelectedToShow = (fileText:string):void => {
         console.log("onFileSelectedToShow: fileText="+fileText);
@@ -17,17 +17,19 @@ function Home() {
     }
 
     const onFileUpdate = (files:FileList):void => {
-        handleZip(files[0], onFileSelectedToShow)
+        //setFolderItems(handleZip(files[0], onFileSelectedToShow));
+        setMainFile(files[0]);
         console.log("onFileUpdate: files="+files);
     }
 
     return (
     <div className="main">
         JavaFind
-        <FileUpload onUpload={onFileUpdate}/>
-<pre id="folder-struct"><code className="language-treeview" id="folder-tree">
+        <FileUpload onUpload={onFileUpdate} />
+<pre id="folder-struct2"><code className="language-treeview" id="folder-tree2">
 </code></pre>
-        <CodeWindow codeText={codeText} language="java"/>
+        <FolderTree zipFile={mainFile} showCodeCallback={onFileSelectedToShow} />
+        <CodeWindow codeText={codeText} language="java" />
     </div>
     );
 }
