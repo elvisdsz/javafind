@@ -19,11 +19,12 @@ const CodeWindow:React.FC<CodeProps> = (props) => {
 
 console.log("rendering");
 return(
-<pre id="code-file" className="line-numbers" data-line="5-10">
+    <div className="codewindow">
+<pre id="code-file" className="scrollable line-numbers" data-line="5-10">
 <code className={"language-"+props.language + " match-braces"} id="code">
 {props.codeText.trim()}
 </code>
-</pre>);
+</pre></div>);
 }
 
 export default CodeWindow;

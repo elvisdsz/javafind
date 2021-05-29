@@ -24,12 +24,13 @@ function Home() {
 
     return (
     <div className="main">
-        JavaFind
-        <FileUpload onUpload={onFileUpdate} />
-<pre id="folder-struct2"><code className="language-treeview" id="folder-tree2">
-</code></pre>
-        <FolderTree zipFile={mainFile} showCodeCallback={onFileSelectedToShow} />
-        <CodeWindow codeText={codeText} language="java" />
+        <div className="header">
+        {mainFile == null?<FileUpload onUpload={onFileUpdate}/>:<h1 style={{color:'honeydew', padding:'0 5rem'}}>JavaFind</h1>}
+        </div>
+        <div className="jar-container">
+            <FolderTree zipFile={mainFile} showCodeCallback={onFileSelectedToShow} />
+            <CodeWindow codeText={codeText} language="java" />
+        </div>
     </div>
     );
 }

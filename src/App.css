@@ -2,3 +2,97 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+
+:root {
+  font-size: 16px;
+  /*font-family: 'Open Sans';*/
+  --text-primary: #b6b6b6;
+  --text-secondary: #ececec;
+  --bg-primary: #23232e;
+  --bg-secondary: #141418;
+  --transition-speed: 600ms;
+}
+
+body {
+  color: black;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background: #1e1e24;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background: #6649b8;
+}
+
+.main {
+  width: 100%;
+  height: 100vh;
+}
+
+.header {
+  height: 5rem;
+  position: fixed;
+}
+
+.jar-container {
+  box-sizing: border-box;
+  padding-top: 5rem;
+  display: flex;
+  background-color: var(--bg-primary);
+  height: 100vh;
+}
+
+.foldernav {
+  width: 5rem;
+  transition: width 600ms ease;
+  color: var(--text-primary);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  /*height: 100vh;*/
+  height: 100%;
+}
+
+.foldernav:hover {
+  width: 100%;
+  background-color: #6649b8;
+}
+
+.foldernav-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /*overflow: hidden;*/
+  white-space: nowrap;
+}
+
+.codewindow {
+  display: flex;
+  width:100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+#code-file {
+  flex: 1;
+  box-sizing: border-box;
+  /*height: 100%;*/
+}
