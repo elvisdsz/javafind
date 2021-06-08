@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CodeWindow from './CodeWindow';
 import FileUpload from './FileUpload';
 import FolderTree from './FolderTree';
+import SearchPanel from './SearchPanel';
 
 function Home() {
 
@@ -24,6 +25,7 @@ function Home() {
 
     return (
     <div className="main">
+        <SearchPanel/>
         <div className="header">
         {mainFile == null?<FileUpload onUpload={onFileUpdate}/>:<h1 style={{color:'honeydew', padding:'0 5rem'}}>JavaFind</h1>}
         </div>
