@@ -129,3 +129,12 @@ body {
   border: 1px solid black;
   background-color: aliceblue;
 }
+
+.search-result>ul>li {
+  color: blueviolet;
+}
+.search-result>ul>li:hover {
+  text-decoration: underline;
+  color: blueviolet;
+  cursor: pointer;
+}

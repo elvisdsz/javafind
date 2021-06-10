@@ -1,3 +1,5 @@
+import JSZip from 'jszip';
+import Prism from 'prismjs';
 import React, { useState } from 'react';
 import CodeWindow from './CodeWindow';
 import FileUpload from './FileUpload';
@@ -23,9 +25,28 @@ function Home() {
         console.log("onFileUpdate: files="+files);
     }
 
+    const loadFile = (url: string) => {
+        var zip = new JSZip();
+        console.log("loading file bdata from url="+url);
+        fetch(url).then(r => r.blob()).then( bdata =>
+            {
+                JSZip.loadAsync(bdata).then(function () {
+                    zip.loadAsync(bdata)
+                        .then(function(zip) {
+                            // you now have every files contained in the loaded zip
+                            zip.folder("")?.forEach(function (relativePath, file){
+                                    console.log("iterating over", relativePath);
+                                });
+                        });
+                })
+            }
+        );
+
+    }
+
     return (
     <div className="main">
-        <SearchPanel/>
+        <SearchPanel loadFile={loadFile} />
         <div className="header">
         {mainFile == null?<FileUpload onUpload={onFileUpdate}/>:<h1 style={{color:'honeydew', padding:'0 5rem'}}>JavaFind</h1>}
         </div>

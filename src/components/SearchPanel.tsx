@@ -5,10 +5,15 @@ interface SearchResult {
     artifactId: string,
     version: string,
     classifier: string,
-    fileExtension: string
+    fileExtension: string,
+    relFilepath: string
 }
 
-const SearchPanel = () => {
+interface SearchPanelProps {
+    loadFile: (url: string)=>void
+}
+
+const SearchPanel:React.FC<SearchPanelProps> = ({loadFile}) => {
 
     const [query, setQuery] = useState<String>("");
 
@@ -33,7 +38,7 @@ const SearchPanel = () => {
             <div className="search-result">
                 <ul>
                 {searchResults?.map( res => {
-                    return <li>{res.groupId} {res.artifactId} {res.version}</li>
+                    return <li onClick={() => loadFile("http://localhost:8080/getFile?fp="+res.relFilepath)}>{res.groupId} {res.artifactId} {res.version}</li>
                 })}
                 </ul>
             </div>
