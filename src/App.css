@@ -107,6 +107,9 @@ body {
   background-color: rgb(70, 130, 180, 0.6);
 }
 
+.search-container.hide {
+  display: none;
+}
 .search-box {
   display: flex;
   justify-content: center;

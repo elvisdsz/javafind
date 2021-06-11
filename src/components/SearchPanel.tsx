@@ -10,10 +10,11 @@ interface SearchResult {
 }
 
 interface SearchPanelProps {
+    show: boolean,
     loadFile: (url: string)=>void
 }
 
-const SearchPanel:React.FC<SearchPanelProps> = ({loadFile}) => {
+const SearchPanel:React.FC<SearchPanelProps> = ({show, loadFile}) => {
 
     const [query, setQuery] = useState<String>("");
 
@@ -30,7 +31,7 @@ const SearchPanel:React.FC<SearchPanelProps> = ({loadFile}) => {
     }
 
     return (
-        <div className="search-container">
+        <div className= {"search-container"+(show?"":" hide")}>
             <div className="search-box">
                 <input className="search-input" type="text" placeholder="Search" onChange={e => setQuery(e.target.value)}/>
                 <input className="search-btn" type="submit" value="Search" onClick={searchApi} />

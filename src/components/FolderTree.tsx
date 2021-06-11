@@ -5,7 +5,7 @@ import 'prismjs/plugins/treeview/prism-treeview';
 import '../prism/prism.css';
 
 interface FolderTreeProps {
-    zipFile: File | undefined;
+    zipFile: Blob, //File | undefined;
     showCodeCallback: (fileText:string)=>void;
 }
 
@@ -15,13 +15,13 @@ const FolderTree:React.FC<FolderTreeProps> = ({zipFile, showCodeCallback}) => {
     const [zip, setZip] = useState<JSZip>();
 
     useEffect(() => {
-        console.log("zipFile updated->"+zipFile?.name);
+        //console.log("zipFile updated->"+zipFile?.name);
         if(zipFile != null)
             handleZip(zipFile);
     }, [zipFile])
 
     const handleFileInZip = (zip: JSZip, path: string, showCodeCallback: (codeText: string)=>void) => {
-        let promise = zip.file(path)?.async("string"); // a promise of "Hello World\n"
+        let promise = zip.file(path)?.async("string");
         console.log("Attempting to show file");
         if(promise == null || promise === undefined)
             return null;
@@ -30,10 +30,10 @@ const FolderTree:React.FC<FolderTreeProps> = ({zipFile, showCodeCallback}) => {
         })
     }
 
-    const handleZip = (file: File) => {
+    const handleZip = (zipBlob: Blob) => { //(file: File) => {
         var zip_obj = new JSZip();
         let folderItems = new Map();
-        zip_obj.loadAsync(file)
+        zip_obj.loadAsync(zipBlob)
             .then(function(zip) {
                 zip.folder("")!.forEach(function (relativePath, file){
                     folderItems.set(relativePath, file);

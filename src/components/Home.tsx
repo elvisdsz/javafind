@@ -12,7 +12,9 @@ function Home() {
     const xmlCode = `<xml a="43"></xml>`;
 
     const [codeText, setCodeText] = useState<string>("import java.io.File;\nimport java.utils.List;\n\npublic class JavaApp {\n\tprivate int i = 20\n}\n");
-    const [mainFile, setMainFile] = useState<File>();
+    const [mainFile, setMainFile] = useState<Blob>();//useState<File>();
+
+    const [showSearchPanel, setShowSearchPanel] = useState<boolean>(true);
     
     const onFileSelectedToShow = (fileText:string):void => {
         console.log("onFileSelectedToShow: fileText="+fileText);
@@ -26,19 +28,22 @@ function Home() {
     }
 
     const loadFile = (url: string) => {
-        var zip = new JSZip();
+        //var zip = new JSZip();
         console.log("loading file bdata from url="+url);
-        fetch(url).then(r => r.blob()).then( bdata =>
-            {
-                JSZip.loadAsync(bdata).then(function () {
-                    zip.loadAsync(bdata)
-                        .then(function(zip) {
-                            // you now have every files contained in the loaded zip
-                            zip.folder("")?.forEach(function (relativePath, file){
-                                    console.log("iterating over", relativePath);
-                                });
-                        });
-                })
+        fetch(url).then(r => r.blob())
+        .then( bdata =>{
+                setMainFile(bdata);
+                setShowSearchPanel(false);
+                /*zip.loadAsync(bdata)
+                    .then(function(zip) {
+                        // you now have every files contained in the loaded zip
+                        zip.folder("")?.forEach(function (relativePath, file){
+                                console.log("iterating over", relativePath);
+                            });
+
+                        //setShowSearchPanel(false);
+                    });*/
+
             }
         );
 
@@ -46,12 +51,12 @@ function Home() {
 
     return (
     <div className="main">
-        <SearchPanel loadFile={loadFile} />
+        <SearchPanel show={showSearchPanel} loadFile={loadFile} />
         <div className="header">
         {mainFile == null?<FileUpload onUpload={onFileUpdate}/>:<h1 style={{color:'honeydew', padding:'0 5rem'}}>JavaFind</h1>}
         </div>
         <div className="jar-container">
-            <FolderTree zipFile={mainFile} showCodeCallback={onFileSelectedToShow} />
+            <FolderTree zipFile={mainFile!} showCodeCallback={onFileSelectedToShow} />
             <CodeWindow codeText={codeText} language="java" />
         </div>
     </div>
