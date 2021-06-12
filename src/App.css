@@ -48,6 +48,23 @@ body {
 .header {
   height: 5rem;
   position: fixed;
+  width: 100%;
+}
+
+.topnavbar {
+  display: flex;
+  height: 100%;
+  padding:0 2rem;
+  align-items: center;
+}
+
+.topnavbar>.brand {
+  color: aquamarine;
+  font-size: 2rem;
+}
+
+.search-box.hide {
+  display: none;
 }
 
 .jar-container {
@@ -60,16 +77,20 @@ body {
 
 .foldernav {
   width: 5rem;
-  transition: width 600ms ease;
+  transition: width 600ms ease, background-color 600ms ease;
   color: var(--text-primary);
   overflow-y: scroll;
   overflow-x: hidden;
   /*height: 100vh;*/
   height: 100%;
+  background-color: black;
+
+  position: fixed;
+  z-index: 2;
 }
 
 .foldernav:hover {
-  width: 100%;
+  width: 40vw;
   background-color: #6649b8;
 }
 
@@ -89,6 +110,8 @@ body {
   width:100%;
   height: 100%;
   box-sizing: border-box;
+
+  margin-left: 5rem;
 }
 
 #code-file {
@@ -104,17 +127,62 @@ body {
   right: 0;
   bottom: 0;
   z-index: 10;
-  background-color: rgb(70, 130, 180, 0.6);
+  background-color: rgb(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
 }
 
 .search-container.hide {
   display: none;
 }
+
+.close-btn {
+  border: none;
+  display: inline-block;
+  padding: 8px;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background-color: aquamarine;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /*border-bottom-right-radius: 5px;
+  border-radius: 50%;
+  margin:10px;*/
+}
+
+.pos-top-right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-bottom-left-radius: 5px
+}
+
+.pos-top-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-bottom-right-radius: 5px
+}
+
+.search-container>.search-box {
+  padding: 3rem 0;
+}
+
 .search-box {
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 3rem 0;
   /*filter: blur(8px);
   -webkit-filter: blur(8px);*/
 }
@@ -123,14 +191,19 @@ body {
   width: 100%;
   max-width: 60vw;
   height: 2rem;
+  padding: 5px 15px;
+  border-radius: 5px 0 0 5px;
 }
 
 .search-btn {
+  border-radius: 0 5px 5px 0;
 }
 
 .search-result {
-  border: 1px solid black;
   background-color: aliceblue;
+  height: 100%;
+  margin: 0 10% 10px 10%;
+  border-radius: 5px;
 }
 
 .search-result>ul>li {

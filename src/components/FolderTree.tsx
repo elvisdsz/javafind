@@ -51,15 +51,19 @@ const FolderTree:React.FC<FolderTreeProps> = ({zipFile, showCodeCallback}) => {
     console.log("**FolderTree re-render** "+folderItems?.size);
     if(zip != null && folderItems != null) {
         //return(<pre id="folder-struct"><code className="language-treeview" id="folder-tree">
-        return(<div className="foldernav scrollable"><ul className="foldernav-nav">
-            {   Array.from(folderItems!.keys()).map((path, index)=>{
-                    console.log(path);
-                    return (<li>
-                        <span key={index} className="nav-link file-link highlight" onClick={() => {handleFileInZip(zip!, path, showCodeCallback)}}>{path}</span>
-                        <br/>
-                    </li>)
-                }) }
-        </ul></div>)
+        return(<div className="foldernav scrollable">
+                <p>Folder Tree</p>
+                <ul className="foldernav-nav">
+                {   Array.from(folderItems!.keys()).map((path, index)=>{
+                        console.log(path);
+                        return (<li>
+                            <span key={index} className="nav-link file-link highlight" onClick={() => {handleFileInZip(zip!, path, showCodeCallback)}}>{path}</span>
+                            <br/>
+                        </li>)
+                    }) }
+                    <li>---THE END---</li>
+                </ul>
+            </div>)
         {/*</code></pre>)*/}
     } else {
         return <div className="foldernav"></div>

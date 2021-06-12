@@ -5,6 +5,7 @@ import CodeWindow from './CodeWindow';
 import FileUpload from './FileUpload';
 import FolderTree from './FolderTree';
 import SearchPanel from './SearchPanel';
+import NavBar from './NavBar';
 
 function Home() {
 
@@ -25,6 +26,14 @@ function Home() {
         //setFolderItems(handleZip(files[0], onFileSelectedToShow));
         setMainFile(files[0]);
         console.log("onFileUpdate: files="+files);
+    }
+
+    const handleShowSearchPanel = () => {
+        setShowSearchPanel(true);
+    }
+
+    const handleHideSearchPanel = () => {
+        setShowSearchPanel(false);
     }
 
     const loadFile = (url: string) => {
@@ -51,9 +60,10 @@ function Home() {
 
     return (
     <div className="main">
-        <SearchPanel show={showSearchPanel} loadFile={loadFile} />
+        <SearchPanel show={showSearchPanel} loadFile={loadFile} hideSearchPanel={handleHideSearchPanel} />
         <div className="header">
-        {mainFile == null?<FileUpload onUpload={onFileUpdate}/>:<h1 style={{color:'honeydew', padding:'0 5rem'}}>JavaFind</h1>}
+            {/*mainFile == null?<FileUpload onUpload={onFileUpdate}/>:<NavBar searchPanel={showSearchPanel} showSearchPanel={handleShowSearchPanel} />*/}
+            <NavBar searchPanel={showSearchPanel} showSearchPanel={handleShowSearchPanel} />
         </div>
         <div className="jar-container">
             <FolderTree zipFile={mainFile!} showCodeCallback={onFileSelectedToShow} />
