@@ -7,7 +7,7 @@ import TreeView from './project-struct-view/TreeView';
 
 interface FolderTreeProps {
     zipFile: Blob, //File | undefined;
-    showCodeCallback: (fileText:string)=>void;
+    showCodeCallback: (filename: string, fileText:string)=>void;
 }
 
 const FolderTree:React.FC<FolderTreeProps> = ({zipFile, showCodeCallback}) => {
@@ -27,7 +27,7 @@ const FolderTree:React.FC<FolderTreeProps> = ({zipFile, showCodeCallback}) => {
         if(promise == null || promise === undefined)
             return null;
         promise.then(value => {
-            showCodeCallback(value);
+            showCodeCallback(path, value);
         })
     }
 

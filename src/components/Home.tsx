@@ -14,12 +14,14 @@ function Home() {
 
     const [codeText, setCodeText] = useState<string>("import java.io.File;\nimport java.utils.List;\n\npublic class JavaApp {\n\tprivate int i = 20\n}\n");
     const [mainFile, setMainFile] = useState<Blob>();//useState<File>();
+    const [selectedFilename, setSelectedFilename] = useState<string>("");
 
     const [showSearchPanel, setShowSearchPanel] = useState<boolean>(true);
     
-    const onFileSelectedToShow = (fileText:string):void => {
+    const onFileSelectedToShow = (filename: string, fileText:string):void => {
         console.log("onFileSelectedToShow: fileText="+fileText);
         setCodeText(fileText);
+        setSelectedFilename(filename);
     }
 
     const onFileUpdate = (files:FileList):void => {
@@ -67,7 +69,7 @@ function Home() {
         </div>
         <div className="jar-container">
             <FolderTree zipFile={mainFile!} showCodeCallback={onFileSelectedToShow} />
-            <CodeWindow codeText={codeText} language="java" />
+            <CodeWindow codeText={codeText} language="java" filename={selectedFilename}/>
         </div>
     </div>
     );

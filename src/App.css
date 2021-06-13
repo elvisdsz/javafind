@@ -40,6 +40,11 @@ body {
   background: #6649b8;
 }
 
+.not-scrollable {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
 .main {
   width: 100%;
   height: 100vh;
@@ -80,13 +85,14 @@ body {
   transition: width 600ms ease, background-color 600ms ease;
   color: var(--text-primary);
   overflow-y: scroll;
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
+  overflow-x: scroll;
   /*height: 100vh;*/
   height: 100%;
   background-color: black;
 
-  position: fixed;
-  z-index: 2;
+  /*position: fixed;
+  z-index: 2;*/
 }
 
 .foldernav:hover {
@@ -141,17 +147,29 @@ body {
 
 .codewindow {
   display: flex;
+  flex-direction: column;
   width:100%;
   height: 100%;
   box-sizing: border-box;
 
-  padding-left: 5rem;
+  /*padding-left: 5rem;*/
+}
+
+.codewindow-title {
+  width: 100%;
+  text-align: center;
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+  font-size: 1.3rem;
+  padding: 5px;
+  font-family: sans-serif;
 }
 
 #code-file {
   flex: 1;
   box-sizing: border-box;
   /*height: 100%;*/
+  margin: 0;
 }
 
 .search-container {
