@@ -105,6 +105,40 @@ body {
   white-space: nowrap;
 }
 
+.tree-view ul {
+  list-style-type: none;
+}
+
+.mainUL {
+  padding: 0;
+  margin: 0;
+}
+
+.caret {
+  cursor: pointer;
+  user-select: none; /* Prevent text selection */
+}
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+.caret-down::before {
+  transform: rotate(90deg);
+}
+.nested {
+  display: none;
+}
+.active {
+  display: block;
+}
+
+.code-file-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .codewindow {
   display: flex;
   width:100%;

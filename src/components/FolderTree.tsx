@@ -3,6 +3,7 @@ import JSZip from 'jszip';
 import Prism from 'prismjs';
 import 'prismjs/plugins/treeview/prism-treeview';
 import '../prism/prism.css';
+import TreeView from './project-struct-view/TreeView';
 
 interface FolderTreeProps {
     zipFile: Blob, //File | undefined;
@@ -20,8 +21,8 @@ const FolderTree:React.FC<FolderTreeProps> = ({zipFile, showCodeCallback}) => {
             handleZip(zipFile);
     }, [zipFile])
 
-    const handleFileInZip = (zip: JSZip, path: string, showCodeCallback: (codeText: string)=>void) => {
-        let promise = zip.file(path)?.async("string");
+    const handleFileInZip = (/*zip: JSZip,*/ path: string/*, showCodeCallback: (codeText: string)=>void*/) => {
+        let promise = zip!.file(path)?.async("string");
         console.log("Attempting to show file");
         if(promise == null || promise === undefined)
             return null;
@@ -54,13 +55,14 @@ const FolderTree:React.FC<FolderTreeProps> = ({zipFile, showCodeCallback}) => {
         return(<div className="foldernav scrollable">
                 <p>Folder Tree</p>
                 <ul className="foldernav-nav">
-                {   Array.from(folderItems!.keys()).map((path, index)=>{
+                {   /*Array.from(folderItems!.keys()).map((path, index)=>{
                         console.log(path);
                         return (<li>
                             <span key={index} className="nav-link file-link highlight" onClick={() => {handleFileInZip(zip!, path, showCodeCallback)}}>{path}</span>
                             <br/>
                         </li>)
-                    }) }
+                    }) */}
+                    <TreeView pathsList={Array.from(folderItems!.keys())} onClickHandler={handleFileInZip}/>
                     <li>---THE END---</li>
                 </ul>
             </div>)
