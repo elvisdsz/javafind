@@ -3,7 +3,8 @@ import JSZip from 'jszip';
 import Prism from 'prismjs';
 import 'prismjs/plugins/treeview/prism-treeview';
 import '../prism/prism.css';
-import TreeView from './project-struct-view/TreeView';
+import TreeViewList from './project-struct-view/TreeViewList';
+import { Paper } from '@material-ui/core';
 
 interface FolderTreeProps {
     zipFile: Blob, //File | undefined;
@@ -51,24 +52,15 @@ const FolderTree:React.FC<FolderTreeProps> = ({zipFile, showCodeCallback}) => {
 
     console.log("**FolderTree re-render** "+folderItems?.size);
     if(zip != null && folderItems != null) {
-        //return(<pre id="folder-struct"><code className="language-treeview" id="folder-tree">
-        return(<div className="foldernav scrollable">
+        return(<Paper variant="outlined" square /*className="foldernav scrollable"*/>
                 <p>Folder Tree</p>
                 <ul className="foldernav-nav">
-                {   /*Array.from(folderItems!.keys()).map((path, index)=>{
-                        console.log(path);
-                        return (<li>
-                            <span key={index} className="nav-link file-link highlight" onClick={() => {handleFileInZip(zip!, path, showCodeCallback)}}>{path}</span>
-                            <br/>
-                        </li>)
-                    }) */}
-                    <TreeView pathsList={Array.from(folderItems!.keys())} onClickHandler={handleFileInZip}/>
+                    <TreeViewList pathsList={Array.from(folderItems!.keys())} onClickHandler={handleFileInZip}/>
                     <li>---THE END---</li>
                 </ul>
-            </div>)
-        {/*</code></pre>)*/}
+            </Paper>)
     } else {
-        return <div className="foldernav"></div>
+        return <Paper variant="outlined" square /*className="foldernav"*/>Folder Tree</Paper>
     }
 }
 

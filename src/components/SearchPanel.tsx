@@ -1,3 +1,4 @@
+import { Hidden, Modal, Paper } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 
 interface SearchResult {
@@ -48,22 +49,26 @@ const SearchPanel:React.FC<SearchPanelProps> = ({show, loadFile, hideSearchPanel
     }
 
     return (
-        <div className= {"search-container"+(show?"":" hide")} onClick={hideSearchPanel}>
-            <div className="close-btn pos-top-left">BK</div>
-            <div className="close-btn pos-top-right">X</div>
-            <div className="search-box" onClick={stopEventPropagation}>
-                <input id="search-input-main" className="search-input" type="text" placeholder="Search"
-                        onChange={e => setQuery(e.target.value)} onKeyUp={enterKeyToSearch}/>
-                <input className="search-btn" type="submit" value="Search" onClick={searchApi} />
-            </div>
-            <div className="search-result" onClick={stopEventPropagation}>
-                <ul>
-                {searchResults?.map( res => {
-                    return <li onClick={() => loadFile("http://localhost:8080/getFile?fp="+res.relFilepath)}>{res.groupId} {res.artifactId} {res.version}</li>
-                })}
-                </ul>
-            </div>
-        </div>
+        /*<Hidden xsUp={!show} /*className= {"search-container"+(show?"":" hide")} onClick={hideSearchPanel} >*/
+        <Modal open={show} onClose={hideSearchPanel}>
+            <Paper className="search-container">
+                <div className="close-btn pos-top-left">BK</div>
+                <div className="close-btn pos-top-right">X</div>
+                <div className="search-box" onClick={stopEventPropagation}>
+                    <input id="search-input-main" className="search-input" type="text" placeholder="Search"
+                            onChange={e => setQuery(e.target.value)} onKeyUp={enterKeyToSearch}/>
+                    <input className="search-btn" type="submit" value="Search" onClick={searchApi} />
+                </div>
+                <div className="search-result" onClick={stopEventPropagation}>
+                    <ul>
+                    {searchResults?.map( res => {
+                        return <li onClick={() => loadFile("http://localhost:8080/getFile?fp="+res.relFilepath)}>{res.groupId} {res.artifactId} {res.version}</li>
+                    })}
+                    </ul>
+                </div>
+            </Paper>
+        </Modal>
+        /*</Hidden>*/
     );
 }
 
