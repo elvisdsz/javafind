@@ -145,7 +145,7 @@ body {
   height: 100%;
   box-sizing: border-box;
 
-  margin-left: 5rem;
+  padding-left: 5rem;
 }
 
 #code-file {
