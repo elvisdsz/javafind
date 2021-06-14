@@ -4,6 +4,7 @@ import 'prismjs/components/prism-java';
 //import 'prismjs/plugins/line-numbers';
 import '../prism/prism.css';
 import { Paper } from '@material-ui/core';
+import FilepathBreadcrumbs from './FilepathBreadcrumbs';
 
 interface CodeProps {
     codeText: string,
@@ -22,7 +23,8 @@ const CodeWindow:React.FC<CodeProps> = (props) => {
 console.log("rendering");
 return(
     <Paper variant="outlined" square/*className="codewindow not-scrollable"*/>
-<div className="codewindow-title">{props.filename}</div>
+{/*<div className="codewindow-title">{props.filename}</div>*/}
+<FilepathBreadcrumbs filepath={props.filename}/>
 <pre id="code-file" className="scrollable line-numbers" data-line="5-10">
 <code className={"language-"+props.language + " match-braces"} id="code">
 {props.codeText.trim()}
