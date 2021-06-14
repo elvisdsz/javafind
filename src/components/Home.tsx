@@ -4,16 +4,16 @@ import FileUpload from './FileUpload';
 import FolderTree from './FolderTree';
 import SearchPanel from './SearchPanel';
 import NavBar from './NavBar';
-import { Grid, makeStyles } from '@material-ui/core';
+import { Box, Grid, makeStyles, Paper } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
+        height: "100vh",
+        display: "flex",
     },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
+    longPaper: {
         color: theme.palette.text.secondary,
+        display: "flex"
     },
 }));
 
@@ -73,22 +73,26 @@ function Home() {
     }
 
     return (
-    <Grid container /*className="main"*/ className={classes.root}>
-        <Grid item xs={10}>
-            <SearchPanel show={showSearchPanel} loadFile={loadFile} hideSearchPanel={handleHideSearchPanel} />
-        </Grid>
-
-        <Grid /*className="header"*/ item xs={12}>
+    <Box>
+        <Box /*className="header"*/ >
             {/*mainFile == null?<FileUpload onUpload={onFileUpdate}/>:<NavBar searchPanel={showSearchPanel} showSearchPanel={handleShowSearchPanel} />*/}
             <NavBar searchPanel={showSearchPanel} showSearchPanel={handleShowSearchPanel} />
-        </Grid>
-        <Grid /*className="jar-container"*/ item xs={3}>
-            <FolderTree zipFile={mainFile!} showCodeCallback={onFileSelectedToShow} />
-        </Grid>
-        <Grid item xs={9}>
-            <CodeWindow codeText={codeText} language="java" filename={selectedFilename} />
-        </Grid>
-    </Grid>
+        </Box>
+    
+
+        <Box /*className="main"*/ className={classes.root} bgcolor="green" display="flex" height="100vh" width="100vw">
+            <Paper>
+                    <SearchPanel show={showSearchPanel} loadFile={loadFile} hideSearchPanel={handleHideSearchPanel} />
+            </Paper>
+            <Box /*className="jar-container"*/ bgcolor="red" flex={{xs:3}} className={classes.longPaper}>
+                <FolderTree zipFile={mainFile!} showCodeCallback={onFileSelectedToShow} />
+            </Box>
+            <Box bgcolor="blue" flex={{xs:9}} className={classes.longPaper}>
+                <CodeWindow codeText={codeText} language="java" filename={selectedFilename} />
+            </Box>
+        </Box>
+
+    </Box>
     );
 }
 

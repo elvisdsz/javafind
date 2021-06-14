@@ -19,7 +19,7 @@ const FilepathBreadcrumbs:React.FC<FilepathBreadcrumbsProps> = (props) => {
     })
 
     return (
-        <Breadcrumbs aria-label="breadcrumb">
+        <Breadcrumbs separator="›" aria-label="breadcrumb">
             { dirPathParts }
             <Link
                 color="textPrimary"

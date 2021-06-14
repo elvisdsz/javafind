@@ -4,7 +4,13 @@ import Prism from 'prismjs';
 import 'prismjs/plugins/treeview/prism-treeview';
 import '../prism/prism.css';
 import TreeViewList from './project-struct-view/TreeViewList';
-import { Paper } from '@material-ui/core';
+import { Box, makeStyles, Paper } from '@material-ui/core';
+
+const useStyles = makeStyles({
+    folderNav: {
+        paddingInlineStart: 0
+    },
+});
 
 interface FolderTreeProps {
     zipFile: Blob, //File | undefined;
@@ -12,6 +18,8 @@ interface FolderTreeProps {
 }
 
 const FolderTree:React.FC<FolderTreeProps> = ({zipFile, showCodeCallback}) => {
+
+    const classes = useStyles();
 
     const [folderItems, setFolderItems] = useState<Map<string, File>>();
     const [zip, setZip] = useState<JSZip>();
@@ -51,17 +59,20 @@ const FolderTree:React.FC<FolderTreeProps> = ({zipFile, showCodeCallback}) => {
 
 
     console.log("**FolderTree re-render** "+folderItems?.size);
-    if(zip != null && folderItems != null) {
-        return(<Paper variant="outlined" square /*className="foldernav scrollable"*/>
-                <p>Folder Tree</p>
-                <ul className="foldernav-nav">
+    
+    return (
+        <Box /*className="foldernav scrollable"*/ flex={{ xs: 1}} bgcolor="yellow" >
+            <p>Folder Tree</p>
+            { 
+                (zip != null && folderItems != null) && (
+                <ul className={classes.folderNav}>
                     <TreeViewList pathsList={Array.from(folderItems!.keys())} onClickHandler={handleFileInZip}/>
                     <li>---THE END---</li>
-                </ul>
-            </Paper>)
-    } else {
-        return <Paper variant="outlined" square /*className="foldernav"*/>Folder Tree</Paper>
-    }
+                </ul>)
+            }
+        </Box>
+    )
+    
 }
 
 export default FolderTree;
