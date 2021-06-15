@@ -22,9 +22,8 @@ const CodeWindow:React.FC<CodeProps> = (props) => {
 
 console.log("rendering");
 return(
-    <Box /*className="foldernav scrollable"*/ flex={{ xs: 11}} bgcolor="black"/*className="codewindow not-scrollable"*/>
-{/*<div className="codewindow-title">{props.filename}</div>*/}
-<FilepathBreadcrumbs filepath={props.filename}/>
+    <Box /*flex="1"-if stretch needed*/ /*className="codewindow not-scrollable"*/>
+    <FilepathBreadcrumbs filepath={props.filename}/>
 <pre id="code-file" className="scrollable line-numbers" data-line="5-10">
 <code className={"language-"+props.language + " match-braces"} id="code">
 {props.codeText.trim()}

@@ -61,7 +61,7 @@ const FolderTree:React.FC<FolderTreeProps> = ({zipFile, showCodeCallback}) => {
     console.log("**FolderTree re-render** "+folderItems?.size);
     
     return (
-        <Box /*className="foldernav scrollable"*/ flex={{ xs: 1}} bgcolor="yellow" >
+        <Box /*className="foldernav scrollable"*/ /*flex="1"- if stretch needed*/ bgcolor="yellow">
             <p>Folder Tree</p>
             { 
                 (zip != null && folderItems != null) && (

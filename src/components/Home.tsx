@@ -7,14 +7,23 @@ import NavBar from './NavBar';
 import { Box, Grid, makeStyles, Paper } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    rootBox: {
         height: "100vh",
         display: "flex",
+        flexDirection: "column"
     },
     longPaper: {
         color: theme.palette.text.secondary,
-        display: "flex"
+        display: "flex",
+        flexDirection: "column",
+        overflowY: "scroll",
+        boxSizing: 'border-box',
+        /*min-height: min-content; /* needs vendor prefixes */
     },
+    resizable: {
+        width: "30%",
+        resize: "horizontal"
+    }
 }));
 
 function Home() {
@@ -73,21 +82,22 @@ function Home() {
     }
 
     return (
-    <Box>
+    <Box className={classes.rootBox}>
         <Box /*className="header"*/ >
             {/*mainFile == null?<FileUpload onUpload={onFileUpdate}/>:<NavBar searchPanel={showSearchPanel} showSearchPanel={handleShowSearchPanel} />*/}
             <NavBar searchPanel={showSearchPanel} showSearchPanel={handleShowSearchPanel} />
         </Box>
     
 
-        <Box /*className="main"*/ className={classes.root} bgcolor="green" display="flex" height="100vh" width="100vw">
+        <Box /*className="main"*/ display="flex" flexGrow="1" overflow="auto">
             <Paper>
                     <SearchPanel show={showSearchPanel} loadFile={loadFile} hideSearchPanel={handleHideSearchPanel} />
             </Paper>
-            <Box /*className="jar-container"*/ bgcolor="red" flex={{xs:3}} className={classes.longPaper}>
+            <Box className={classes.longPaper+' '+classes.resizable}>
+            {/*</Box><Box  flex={{xs:3}} className={classes.longPaper}>*/}
                 <FolderTree zipFile={mainFile!} showCodeCallback={onFileSelectedToShow} />
             </Box>
-            <Box bgcolor="blue" flex={{xs:9}} className={classes.longPaper}>
+            <Box flex={{xs:9}} className={classes.longPaper}>
                 <CodeWindow codeText={codeText} language="java" filename={selectedFilename} />
             </Box>
         </Box>

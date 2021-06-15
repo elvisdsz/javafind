@@ -2,6 +2,7 @@ import { Box, makeStyles } from '@material-ui/core';
 import React from 'react';
 import './App.css';
 import Home from './components/Home';
+import NavBar from './components/NavBar';
 
 const useStyles = makeStyles({
   main: {
@@ -13,7 +14,8 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
   return (
-    <Box className={classes.main}>
+    <Box /*className={classes.main}*/>
+      {/*<NavBar searchPanel={true} showSearchPanel={()=>{}} />*/}
       <Home />
     </Box>
   );
