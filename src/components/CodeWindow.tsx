@@ -22,7 +22,7 @@ const CodeWindow:React.FC<CodeProps> = (props) => {
 
 console.log("rendering");
 return(
-    <Box /*flex="1"-if stretch needed*/ /*className="codewindow not-scrollable"*/>
+    <Box /*flex="1"-if stretch needed*/>
     <FilepathBreadcrumbs filepath={props.filename}/>
 <pre id="code-file" className="scrollable line-numbers" data-line="5-10">
 <code className={"language-"+props.language + " match-braces"} id="code">

@@ -4,7 +4,9 @@ import FileUpload from './FileUpload';
 import FolderTree from './FolderTree';
 import SearchPanel from './SearchPanel';
 import NavBar from './NavBar';
-import { Box, Grid, makeStyles, Paper } from '@material-ui/core';
+import { Backdrop, Box, CircularProgress, Grid, makeStyles, Paper } from '@material-ui/core';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import SearchPage from './search/SearchPage';
 
 const useStyles = makeStyles((theme) => ({
     rootBox: {
@@ -23,7 +25,11 @@ const useStyles = makeStyles((theme) => ({
     resizable: {
         width: "30%",
         resize: "horizontal"
-    }
+    },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
 }));
 
 function Home() {
@@ -38,6 +44,8 @@ function Home() {
     const [selectedFilename, setSelectedFilename] = useState<string>("");
 
     const [showSearchPanel, setShowSearchPanel] = useState<boolean>(false);
+
+    const [showLoading, setShowLoading] = useState<boolean>(false);
     
     const onFileSelectedToShow = (filename: string, fileText:string):void => {
         console.log("onFileSelectedToShow: fileText="+fileText);
@@ -62,6 +70,9 @@ function Home() {
     const loadFile = (url: string) => {
         //var zip = new JSZip();
         console.log("loading file bdata from url="+url);
+
+        setShowLoading(true);
+
         fetch(url).then(r => r.blob())
         .then( bdata =>{
                 setMainFile(bdata);
@@ -77,32 +88,45 @@ function Home() {
                     });*/
 
             }
-        );
+        ).finally(() => {
+            setShowLoading(false);
+        });
 
     }
 
     return (
+    <Router>
     <Box className={classes.rootBox}>
         <Box /*className="header"*/ >
             {/*mainFile == null?<FileUpload onUpload={onFileUpdate}/>:<NavBar searchPanel={showSearchPanel} showSearchPanel={handleShowSearchPanel} />*/}
             <NavBar searchPanel={showSearchPanel} showSearchPanel={handleShowSearchPanel} />
         </Box>
     
+        <Switch>
+            <Route path="/search">  {/*     Check https://reactrouter.com/web/guides/quick-start    */}
+                <SearchPage loadFile={loadFile} />
+            </Route>
+            <Route path="/">
+                <Box display="flex" flexGrow="1" overflow="auto">
 
-        <Box /*className="main"*/ display="flex" flexGrow="1" overflow="auto">
-            <Paper>
+                    <Backdrop className={classes.backdrop} open={showLoading}>
+                        <CircularProgress color="inherit" />
+                    </Backdrop>
+
                     <SearchPanel show={showSearchPanel} loadFile={loadFile} hideSearchPanel={handleHideSearchPanel} />
-            </Paper>
-            <Box className={classes.longPaper+' '+classes.resizable}>
-            {/*</Box><Box  flex={{xs:3}} className={classes.longPaper}>*/}
-                <FolderTree zipFile={mainFile!} showCodeCallback={onFileSelectedToShow} />
-            </Box>
-            <Box flex={{xs:9}} className={classes.longPaper}>
-                <CodeWindow codeText={codeText} language="java" filename={selectedFilename} />
-            </Box>
-        </Box>
-
+                    
+                    <Box className={classes.longPaper+' '+classes.resizable}>
+                    {/*</Box><Box  flex={{xs:3}} className={classes.longPaper}>*/}
+                        <FolderTree zipFile={mainFile!} showCodeCallback={onFileSelectedToShow} />
+                    </Box>
+                    <Box flex={{xs:9}} className={classes.longPaper}>
+                        <CodeWindow codeText={codeText} language="java" filename={selectedFilename} />
+                    </Box>
+                </Box>
+            </Route>
+        </Switch>
     </Box>
+    </Router>
     );
 }
 
