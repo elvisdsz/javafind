@@ -39,6 +39,7 @@ function App() {
 
   const currentTheme = createMuiTheme({
     palette: {
+      /*
       type: palletType,
       primary: {
         main: mainPrimaryColor
@@ -48,7 +49,8 @@ function App() {
       },
       background: {
         default: backgroundDefault
-      }
+      }*/
+      type: darkThemeOn?'dark':'light'
     }
   });
 
@@ -59,10 +61,10 @@ function App() {
 
   return (
     <ThemeProvider theme={currentTheme}>
-      <Switch checked={darkThemeOn} onChange={toggleTheme} />
-      <Box /*className={classes.main}*/ bgcolor="background.default">
+      {/*<Switch checked={darkThemeOn} onChange={toggleTheme} />*/}
+      <Box /*className={classes.main}*/ bgcolor="background.default" >
         {/*<NavBar searchPanel={true} showSearchPanel={()=>{}} />*/}
-        <Home />
+        <Home theme={darkThemeOn} toggleTheme={toggleTheme} />
       </Box>
     </ThemeProvider>
   );

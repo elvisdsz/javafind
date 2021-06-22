@@ -1,14 +1,16 @@
-import { AppBar, Button, createStyles, fade, Hidden, IconButton, InputBase, makeStyles, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Button, createStyles, fade, Hidden, IconButton, InputBase, makeStyles, Switch, Toolbar, Typography } from '@material-ui/core';
 import React, { useContext } from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchBar from './SearchBar';
+import { PinDropSharp } from '@material-ui/icons';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
 
 const useStyles = makeStyles((theme) => createStyles({
   menuButton: {
     marginRight: theme.spacing(2),
   },
   title: {
-    flexGrow: 1,
+    /*flexGrow: 1,*/
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
@@ -19,16 +21,18 @@ const useStyles = makeStyles((theme) => createStyles({
 
 interface NavBarProps {
     searchPanel: boolean,
-    showSearchPanel: ()=>void
+    showSearchPanel: ()=>void,
+    theme: boolean,
+    toggleTheme: ()=>void
 }
 
-const NavBar:React.FC<NavBarProps> = ({searchPanel, showSearchPanel}) => {
+const NavBar:React.FC<NavBarProps> = (props) => {
 
   const classes = useStyles();
 
   const searchOnClickHandler = (event:React.MouseEvent) => {
       event.preventDefault();
-      showSearchPanel();
+      props.showSearchPanel();
   }
 
   return (
@@ -48,6 +52,8 @@ const NavBar:React.FC<NavBarProps> = ({searchPanel, showSearchPanel}) => {
           JavaFind
         </Typography>
         <SearchBar />
+        <Switch checked={props.theme} onChange={props.toggleTheme} />
+        <Brightness4Icon/>
       </Toolbar>
     </AppBar>
   );

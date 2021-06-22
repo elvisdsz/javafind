@@ -32,7 +32,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Home() {
+interface HomeProps {
+    theme: boolean,
+    toggleTheme: ()=>void
+}
+
+const Home:React.FC<HomeProps> = (props) => {
 
     const classes = useStyles();
 
@@ -99,7 +104,8 @@ function Home() {
     <Box className={classes.rootBox}>
         <Box /*className="header"*/ >
             {/*mainFile == null?<FileUpload onUpload={onFileUpdate}/>:<NavBar searchPanel={showSearchPanel} showSearchPanel={handleShowSearchPanel} />*/}
-            <NavBar searchPanel={showSearchPanel} showSearchPanel={handleShowSearchPanel} />
+            <NavBar searchPanel={showSearchPanel} showSearchPanel={handleShowSearchPanel}
+                    theme={props.theme} toggleTheme={props.toggleTheme} />
         </Box>
     
         <Switch>

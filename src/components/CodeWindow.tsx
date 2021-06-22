@@ -3,8 +3,15 @@ import Prism from 'prismjs';
 import 'prismjs/components/prism-java';
 //import 'prismjs/plugins/line-numbers';
 import '../prism/prism.css';
-import { Box, Paper } from '@material-ui/core';
+import { Box, createStyles, makeStyles, Paper } from '@material-ui/core';
 import FilepathBreadcrumbs from './FilepathBreadcrumbs';
+
+const useStyles = makeStyles((theme) => createStyles({
+    codePre: {
+        overflow: 'revert!important',
+        flex: 1,
+    },
+}));
 
 interface CodeProps {
     codeText: string,
@@ -14,6 +21,8 @@ interface CodeProps {
 
 const CodeWindow:React.FC<CodeProps> = (props) => {
 
+    const classes = useStyles();
+
     useEffect(() => {
         console.log("effecting CodeWindow.props->"+props);
         //Prism.highlightAll();
@@ -22,9 +31,9 @@ const CodeWindow:React.FC<CodeProps> = (props) => {
 
 console.log("rendering");
 return(
-    <Box /*flex="1"-if stretch needed*/>
+    <Box /*flex="1"-if stretch needed*/ display="flex" flexDirection="column">
     <FilepathBreadcrumbs filepath={props.filename}/>
-<pre id="code-file" className="scrollable line-numbers" data-line="5-10">
+<pre /*id="code-file" className="scrollable line-numbers"*/ className={classes.codePre+' line-numbers'} data-line="5-10">
 <code className={"language-"+props.language + " match-braces"} id="code">
 {props.codeText.trim()}
 </code>

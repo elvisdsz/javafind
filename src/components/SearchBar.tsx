@@ -9,18 +9,21 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 const useStyles = makeStyles((theme) => createStyles({
     search: {
         display: 'flex',
+        flex: 1,
+        margin: 'auto',
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
         backgroundColor: fade(theme.palette.common.white, 0.15),
         '&:hover': {
             backgroundColor: fade(theme.palette.common.white, 0.25),
         },
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
+        /*marginRight: theme.spacing(2),
+        marginLeft: 0,*/
         width: '100%',
         [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(3),
-            width: 'auto',
+            /*marginLeft: theme.spacing(3),*/
+            /*width: 'auto',*/
+            maxWidth: '50vw'
         },
     },
     searchIcon: {
@@ -42,12 +45,12 @@ const useStyles = makeStyles((theme) => createStyles({
         paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
         transition: theme.transitions.create('width'),
         width: '100%',
-        [theme.breakpoints.up('md')]: {
+        /*[theme.breakpoints.up('md')]: {
             width: '20ch',
             '&:focus': {
             width: '60ch',
             },
-        },
+        },*/
     },
     submitIconButton: {
         padding: theme.spacing(0, 2),
