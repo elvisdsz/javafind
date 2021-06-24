@@ -14,11 +14,11 @@ const useStyles = makeStyles({
   },
   '@global': {
     '*::-webkit-scrollbar': {
-      width: '0.4em',
-      height: '0.4em',
+      width: '0.6em',
+      height: '0.6em',
     },
     '*::-webkit-scrollbar-track': {
-      backgroundColor: '#1e1e24',
+      backgroundColor: 'rgba(0,0,0,.1)',
       '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)'
     },
     '*::-webkit-scrollbar-thumb': {

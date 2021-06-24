@@ -18,9 +18,11 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.secondary,
         display: "flex",
         flexDirection: "column",
-        overflowY: "scroll",
+        overflowY: "auto",
         boxSizing: 'border-box',
         /*min-height: min-content; /* needs vendor prefixes */
+        margin: '2px',
+        padding: '5px',
     },
     resizable: {
         width: "30%",
@@ -113,7 +115,7 @@ const Home:React.FC<HomeProps> = (props) => {
                 <SearchPage loadFile={loadFile} />
             </Route>
             <Route path="/">
-                <Box display="flex" flexGrow="1" overflow="auto">
+                <Box display="flex" flexGrow="1" overflow="auto" margin="5px">
 
                     <Backdrop className={classes.backdrop} open={showLoading}>
                         <CircularProgress color="inherit" />
@@ -121,10 +123,10 @@ const Home:React.FC<HomeProps> = (props) => {
 
                     <SearchPanel show={showSearchPanel} loadFile={loadFile} hideSearchPanel={handleHideSearchPanel} />
                     
-                    <Box className={classes.longPaper+' '+classes.resizable}>
+                    <Paper className={classes.longPaper+' '+classes.resizable}>
                     {/*</Box><Box  flex={{xs:3}} className={classes.longPaper}>*/}
                         <FolderTree zipFile={mainFile!} showCodeCallback={onFileSelectedToShow} />
-                    </Box>
+                    </Paper>
                     <Box flex={{xs:9}} className={classes.longPaper}>
                         <CodeWindow codeText={codeText} language="java" filename={selectedFilename} />
                     </Box>

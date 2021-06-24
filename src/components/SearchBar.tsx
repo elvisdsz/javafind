@@ -1,7 +1,6 @@
 import { createStyles, Divider, fade, IconButton, InputBase, makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import SearchIcon from '@material-ui/icons/Search';
-import { SearchResult } from '../interface/SearchResult';
 import { Redirect, withRouter, RouteComponentProps } from "react-router-dom";
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';

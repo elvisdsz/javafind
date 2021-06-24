@@ -2,7 +2,7 @@ import { InputAdornment, makeStyles, Modal, Paper, TextField } from '@material-u
 import React, { useEffect, useState } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import SearchBox from './SearchBox';
-import { SearchResult } from '../interface/SearchResult';
+import { SearchResultIF } from '../interface/SearchResultIF';
 
 const useStyles = makeStyles((theme) => ({
     searchPaper: {
@@ -35,7 +35,7 @@ const SearchPanel:React.FC<SearchPanelProps> = ({show, loadFile, hideSearchPanel
 
     const [query, setQuery] = useState<String>("");
 
-    const[searchResults, setSearchResults] = useState<SearchResult[]>();
+    const[searchResults, setSearchResults] = useState<SearchResultIF[]>();
 
     useEffect(() => {
         if(show === true)
@@ -47,7 +47,7 @@ const SearchPanel:React.FC<SearchPanelProps> = ({show, loadFile, hideSearchPanel
         fetch("http://localhost:8080/searcha?q="+query)
             .then(res => res.json())
             .then(
-                (result:SearchResult[]) => { console.log(result); setSearchResults(result); },
+                (result:SearchResultIF[]) => { console.log(result); setSearchResults(result); },
                 (error) => {console.log("Error Occurred: "+error)}
             );
     }

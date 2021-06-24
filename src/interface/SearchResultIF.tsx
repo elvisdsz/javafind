@@ -1,4 +1,4 @@
-export interface SearchResult {
+export interface SearchResultIF {
     groupId: string,
     artifactId: string,
     version: string,

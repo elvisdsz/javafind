@@ -1,24 +1,36 @@
-import { Backdrop, Box, CircularProgress, Link, makeStyles, Paper } from '@material-ui/core';
+import { Backdrop, Box, CircularProgress, List, makeStyles, ListSubheader, Divider, Paper } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
-import { SearchResult } from '../../interface/SearchResult';
+import { SearchResultIF } from '../../interface/SearchResultIF';
 import { useLocation, Link as RouterLink, Redirect, useHistory } from 'react-router-dom';
+import SearchResult from './SearchResult';
 
 const useStyles = makeStyles((theme) => ({
-    searchPaper: {
+    /*searchPaper: {
         display:'flex',
         flexDirection: 'column',
         alignItems:'center',
         justifyContent:'center',
         margin: 'auto',
         marginTop: '20px',
+        marginBottom: '20px',
         width: "80%",
         backgroundColor: theme.palette.background.paper,
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
+    },*/
+    searchResultArea: {
+        /*display:'flex',
+        flexDirection: 'column',
+        margin: 'auto',
+        padding: theme.spacing(2, 4, 3),*/
+        /*alignItems:'center',*/
+        /*[theme.breakpoints.up('sm')]: {
+            width:'50%',
+          }*/
     },
-    margin: {
-        margin: theme.spacing(1),
+    resultList: {
+        backgroundColor: theme.palette.background.paper,
     },
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
@@ -27,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface LocationState { //extends RouteComponentProps<QueryParams> {
-    searchResults: SearchResult[],
+    searchResults: SearchResultIF[],
     search: string, // query string
 }
 
@@ -42,7 +54,7 @@ const SearchPage:React.FC<SearchPageProps> = (props) => {
     const location = useLocation<LocationState>();
     const history = useHistory();
 
-    const [searchResults, setSearchResults] = useState<SearchResult[]>();
+    const [searchResults, setSearchResults] = useState<SearchResultIF[]>();
     const [showLoading, setShowLoading] = useState(false);
 
     console.log("Received loc state:", location.state);
@@ -62,7 +74,7 @@ const SearchPage:React.FC<SearchPageProps> = (props) => {
             fetch(`http://localhost:8080/searcha?q=${encodeURIComponent(pathQuery!)}`)
             .then(res => res.json())
             .then(
-                (result:SearchResult[]) => {
+                (result:SearchResultIF[]) => {
                         setSearchResults(result); 
                     },
                 (error) => {console.log("Error Occurred: "+error)}
@@ -78,27 +90,34 @@ const SearchPage:React.FC<SearchPageProps> = (props) => {
 
     
     const resultsList = () => {
-        return <ul>
+        return <List className={classes.resultList}>
+            <ListSubheader>Showing 10 of 512 results found</ListSubheader>
             {searchResults?.map( (res, index) => {
-                return <li key={index}>
-                        <Link component={RouterLink} to="/" onClick={() => props.loadFile("http://localhost:8080/getFile?fp="+res.relFilepath)}>
-                            {res.groupId} {res.artifactId} {res.version}
-                        </Link>
-                    </li>
+                return (<>
+                        <Divider component="li" />
+                        <SearchResult index={index} result={res} loadFile={props.loadFile} />
+                    </>)
             })}
-        </ul>
+        </List>
     }
 
     return(
-        <Box>
+        <Box overflow="auto">
             <Backdrop className={classes.backdrop} open={showLoading}>
                 <CircularProgress color="inherit" />
             </Backdrop>
 
-            <Paper className={classes.searchPaper}>
-                <h1>Search results</h1>
-                { resultsList() }
-            </Paper>
+            <Box m={2} /*className={classes.searchPaper}*/ display="flex">
+                <Box flex="1" mr={2} /*boxShadow={2}*/ display={{ xs: 'none', md: 'block' }}>
+                    
+                </Box>
+                <Box flex="3" boxShadow={2} >
+                    { resultsList() }
+                </Box>
+                <Box flex="1" ml={2} /*boxShadow={2}*/ display={{ xs: 'none', md: 'block' }}>
+                    
+                </Box>
+            </Box>
         </Box>
     );
 }

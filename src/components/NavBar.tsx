@@ -1,4 +1,4 @@
-import { AppBar, Button, createStyles, fade, Hidden, IconButton, InputBase, makeStyles, Switch, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Box, Button, createStyles, fade, Hidden, IconButton, InputBase, makeStyles, Switch, Toolbar, Typography } from '@material-ui/core';
 import React, { useContext } from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchBar from './SearchBar';
@@ -6,14 +6,17 @@ import { PinDropSharp } from '@material-ui/icons';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 
 const useStyles = makeStyles((theme) => createStyles({
+  toolbar: {
+    display: 'flex',
+  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  title: {
+  brand: {
     /*flexGrow: 1,*/
     display: 'none',
     [theme.breakpoints.up('sm')]: {
-      display: 'block',
+      display: 'flex',
     },
   },
   
@@ -44,16 +47,22 @@ const NavBar:React.FC<NavBarProps> = (props) => {
           </div>
       </div>*/
       <AppBar position="static">
-      <Toolbar variant="dense">
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-          <MenuIcon />
-        </IconButton>
-        <Typography className={classes.title} variant="h6" noWrap>
-          JavaFind
-        </Typography>
-        <SearchBar />
-        <Switch checked={props.theme} onChange={props.toggleTheme} />
-        <Brightness4Icon/>
+      <Toolbar variant="dense" className={classes.toolbar}>
+        <Box display="flex" flex={1} alignItems="center" className={classes.brand}>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap>
+            JavaFind
+          </Typography>
+        </Box>
+        <Box display="flex" flex={2}>
+          <SearchBar />
+        </Box>
+        <Box display="flex" flex={1} justifyContent="flex-end" alignItems="center">
+          <Switch checked={props.theme} onChange={props.toggleTheme} />
+          <Brightness4Icon/>
+        </Box>
       </Toolbar>
     </AppBar>
   );
