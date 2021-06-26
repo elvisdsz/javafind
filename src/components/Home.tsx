@@ -124,8 +124,6 @@ const Home:React.FC<HomeProps> = (props) => {
                     <SearchPanel show={showSearchPanel} loadFile={loadFile} hideSearchPanel={handleHideSearchPanel} />
                     
                     <Paper style={{flex:3}} className={classes.longPaper/*+' '+classes.resizable*/} square>
-                        <Typography variant="caption" gutterBottom>Project Structure</Typography>
-                        <Divider/>
                     {/*</Box><Box  flex={{xs:3}} className={classes.longPaper}>*/}
                         <FolderTree zipFile={mainFile!} showCodeCallback={onFileSelectedToShow} />
                     </Paper>

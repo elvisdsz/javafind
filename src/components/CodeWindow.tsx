@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-java';
-//import 'prismjs/plugins/line-numbers';
+import 'prismjs/plugins/line-numbers/prism-line-numbers';
+import 'prismjs/plugins/match-braces/prism-match-braces';
 import '../prism/prism.css';
 import { Box, createStyles, Divider, makeStyles, Paper } from '@material-ui/core';
 import FilepathBreadcrumbs from './FilepathBreadcrumbs';
