@@ -37,7 +37,7 @@ const SearchResult:React.FC<SearchResultProps> = (props) => {
                     secondary={
                         <React.Fragment>
                             <Typography variant="h5" component="h2" color="textPrimary">
-                                {props.result.artifactId}
+                                {props.result.description} {/* Can be blank */}
                             </Typography>
                         </React.Fragment>
                     }
