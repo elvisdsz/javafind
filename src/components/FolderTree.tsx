@@ -4,7 +4,7 @@ import Prism from 'prismjs';
 import 'prismjs/plugins/treeview/prism-treeview';
 import '../prism/prism.css';
 import TreeViewList from './project-struct-view/TreeViewList';
-import { Box, makeStyles, Paper } from '@material-ui/core';
+import { Box, makeStyles} from '@material-ui/core';
 
 const useStyles = makeStyles({
     folderNav: {
@@ -61,15 +61,14 @@ const FolderTree:React.FC<FolderTreeProps> = ({zipFile, showCodeCallback}) => {
     console.log("**FolderTree re-render** "+folderItems?.size);
     
     return (
-        <Box /*className="foldernav scrollable"*/ /*flex="1"- if stretch needed*/ >
-            <p>Folder Tree</p>
-            { 
-                (zip != null && folderItems != null) && (
-                <ul className={classes.folderNav}>
-                    <TreeViewList pathsList={Array.from(folderItems!.keys())} onClickHandler={handleFileInZip}/>
-                    <li>---THE END---</li>
-                </ul>)
-            }
+        <Box /*className="foldernav scrollable"*/ /*flex="1"- if stretch needed*/overflow="auto">
+                { 
+                    (zip != null && folderItems != null) && (
+                    <ul className={classes.folderNav}>
+                        <TreeViewList pathsList={Array.from(folderItems!.keys())} onClickHandler={handleFileInZip}/>
+                        <li>---THE END---</li>
+                    </ul>)
+                }
         </Box>
     )
     

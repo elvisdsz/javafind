@@ -1,5 +1,5 @@
 import { Breadcrumbs, Link } from '@material-ui/core';
-import React, { useState } from 'react';
+import React from 'react';
 
 interface FilepathBreadcrumbsProps {
     filepath: string

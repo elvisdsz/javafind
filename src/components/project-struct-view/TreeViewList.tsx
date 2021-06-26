@@ -1,9 +1,9 @@
-import { makeStyles } from '@material-ui/core';
+import { createStyles, fade, makeStyles, Theme, withStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import TreeItem from '@material-ui/lab/TreeItem';
+import TreeItem, { TreeItemProps } from '@material-ui/lab/TreeItem';
 
 const useStyles = makeStyles({
     root: {
@@ -81,10 +81,20 @@ const TreeViewList:React.FC<TreeViewProps> = ({pathsList, onClickHandler}) => {
         console.log("nodeList********", nodeList);
     }, [nodeList]);
 
+    const StyledTreeItem = withStyles((theme: Theme) =>
+        createStyles({
+            group: {
+            marginLeft: 7,
+            paddingLeft: 18,
+            borderLeft: `1px solid ${fade(theme.palette.text.primary, 0.4)}`,
+            },
+        }),
+        )((props: TreeItemProps) => <TreeItem {...props} />);
+
     const showFile = (nodeFile: NodeFile) => {
         //console.log("filename::",nodeFile);
         //return <li className="code-file-link" onClick={()=>onClickHandler(nodeFile.filepath)}>{nodeFile.filename}</li>
-        return <TreeItem key={nodeFile.filepath} nodeId={nodeFile.filepath} label={nodeFile.filename}
+        return <StyledTreeItem key={nodeFile.filepath} nodeId={nodeFile.filepath} label={nodeFile.filename}
             onLabelClick={()=>onClickHandler(nodeFile.filepath)} />;
     }
 
@@ -106,13 +116,13 @@ const TreeViewList:React.FC<TreeViewProps> = ({pathsList, onClickHandler}) => {
                 </ul>
             </li>*/
             return (
-                <TreeItem key={nodeFile.filepath} nodeId={nodeFile.filepath} label={nodeFile.filename}>
+                <StyledTreeItem key={nodeFile.filepath} nodeId={nodeFile.filepath} label={nodeFile.filename}>
                     {
                         nodeFile.children?.map((nItem) => {
                             return showNode(nItem);
                         }) 
                     }
-                </TreeItem>
+                </StyledTreeItem>
             );
     }
 
@@ -137,13 +147,13 @@ const TreeViewList:React.FC<TreeViewProps> = ({pathsList, onClickHandler}) => {
         <TreeView className={classes.root}
             defaultCollapseIcon={<ExpandMoreIcon />}
             defaultExpandIcon={<ChevronRightIcon />} >
-            <TreeItem key={1} nodeId={"1"} label={"JAR"}>
+            {/*<TreeItem key={1} nodeId={"1"} label={"JAR"}>*/}
                 {
                     nodeList?.map( (node) => {
                         return showNode(node);
                     }) 
                 }
-            </TreeItem>
+            {/*</TreeItem>*/}
         </TreeView>
     );
 }

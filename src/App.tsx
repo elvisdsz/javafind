@@ -23,7 +23,10 @@ const useStyles = makeStyles({
     },
     '*::-webkit-scrollbar-thumb': {
       backgroundColor: 'rgba(102,73,184,.7)',
-    }
+    },
+    '*::-webkit-scrollbar-corner': {
+      backgroundColor: 'rgba(0,0,0,.1)',
+    },
   }
 });
 

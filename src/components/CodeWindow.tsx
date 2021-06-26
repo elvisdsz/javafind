@@ -3,7 +3,7 @@ import Prism from 'prismjs';
 import 'prismjs/components/prism-java';
 //import 'prismjs/plugins/line-numbers';
 import '../prism/prism.css';
-import { Box, createStyles, makeStyles, Paper } from '@material-ui/core';
+import { Box, createStyles, Divider, makeStyles, Paper } from '@material-ui/core';
 import FilepathBreadcrumbs from './FilepathBreadcrumbs';
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -33,6 +33,7 @@ console.log("rendering");
 return(
     <Box /*flex="1"-if stretch needed*/ display="flex" flexDirection="column">
     <FilepathBreadcrumbs filepath={props.filename}/>
+    <Divider/>
 <pre /*id="code-file" className="scrollable line-numbers"*/ className={classes.codePre+' line-numbers'} data-line="5-10">
 <code className={"language-"+props.language + " match-braces"} id="code">
 {props.codeText.trim()}

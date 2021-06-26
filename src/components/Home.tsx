@@ -4,7 +4,7 @@ import FileUpload from './FileUpload';
 import FolderTree from './FolderTree';
 import SearchPanel from './SearchPanel';
 import NavBar from './NavBar';
-import { Backdrop, Box, CircularProgress, Grid, makeStyles, Paper } from '@material-ui/core';
+import { Backdrop, Box, CircularProgress, Divider, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SearchPage from './search/SearchPage';
 
@@ -115,7 +115,7 @@ const Home:React.FC<HomeProps> = (props) => {
                 <SearchPage loadFile={loadFile} />
             </Route>
             <Route path="/">
-                <Box display="flex" flexGrow="1" overflow="auto" margin="5px">
+                <Box display="flex" flexGrow="1" overflow="auto">
 
                     <Backdrop className={classes.backdrop} open={showLoading}>
                         <CircularProgress color="inherit" />
@@ -123,13 +123,15 @@ const Home:React.FC<HomeProps> = (props) => {
 
                     <SearchPanel show={showSearchPanel} loadFile={loadFile} hideSearchPanel={handleHideSearchPanel} />
                     
-                    <Paper className={classes.longPaper+' '+classes.resizable}>
+                    <Paper style={{flex:3}} className={classes.longPaper/*+' '+classes.resizable*/} square>
+                        <Typography variant="caption" gutterBottom>Project Structure</Typography>
+                        <Divider/>
                     {/*</Box><Box  flex={{xs:3}} className={classes.longPaper}>*/}
                         <FolderTree zipFile={mainFile!} showCodeCallback={onFileSelectedToShow} />
                     </Paper>
-                    <Box flex={{xs:9}} className={classes.longPaper}>
+                    <Paper style={{flex:9}} className={classes.longPaper} square>
                         <CodeWindow codeText={codeText} language="java" filename={selectedFilename} />
-                    </Box>
+                    </Paper>
                 </Box>
             </Route>
         </Switch>
