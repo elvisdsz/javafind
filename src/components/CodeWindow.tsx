@@ -31,14 +31,16 @@ const CodeWindow:React.FC<CodeProps> = (props) => {
 
 console.log("rendering");
 return(
-    <Box /*flex="1"-if stretch needed*/ display="flex" flexDirection="column">
+    <Box /*flex="1"-if stretch needed*/ display="flex" flexDirection="column" overflow="auto">
     <FilepathBreadcrumbs filepath={props.filename}/>
     <Divider/>
+    <Box overflow="auto">
 <pre /*id="code-file" className="scrollable line-numbers"*/ className={classes.codePre+' line-numbers'} data-line="5-10">
 <code className={"language-"+props.language + " match-braces"} id="code">
 {props.codeText.trim()}
 </code>
 </pre>
+</Box>
 </Box>);
 }
 
