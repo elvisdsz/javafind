@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import JSZip from 'jszip';
-import Prism from 'prismjs';
-import 'prismjs/plugins/treeview/prism-treeview';
-import '../prism/prism.css';
+//import Prism from 'prismjs';
+//import 'prismjs/plugins/treeview/prism-treeview';
+//import '../prism/prism.css';
 import TreeViewList from './project-struct-view/TreeViewList';
 import { Box, Divider, makeStyles, Typography} from '@material-ui/core';
 
@@ -53,7 +53,7 @@ const FolderTree:React.FC<FolderTreeProps> = ({zipFile, showCodeCallback}) => {
                 setZip(zip_obj);
                 setFolderItems(folderItems);
                 //setTimeout(() => Prism.highlightElement(document.getElementById("folder-struct")!), 0)
-                Prism.highlightAll();
+                //Prism.highlightAll();
             });
     }
 
