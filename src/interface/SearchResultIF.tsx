@@ -1,4 +1,5 @@
 export interface SearchResultIF {
+    name: string,
     description: string,
     groupId: string,
     artifactId: string,

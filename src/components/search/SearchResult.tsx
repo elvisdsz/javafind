@@ -37,8 +37,9 @@ const SearchResult:React.FC<SearchResultProps> = (props) => {
                     secondary={
                         <React.Fragment>
                             <Typography variant="h5" component="h2" color="textPrimary">
-                                {props.result.description} {/* Can be blank */}
+                                {props.result.name} {/* Can be blank */}
                             </Typography>
+                            {props.result.description}
                         </React.Fragment>
                     }
                 />
