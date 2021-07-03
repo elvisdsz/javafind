@@ -93,10 +93,10 @@ const SearchPage:React.FC<SearchPageProps> = (props) => {
         return <List className={classes.resultList}>
             <ListSubheader>Showing 10 of 512 results found</ListSubheader>
             {searchResults?.map( (res, index) => {
-                return (<>
+                return (<React.Fragment key={index}>
                         <Divider component="li" />
-                        <SearchResult index={index} result={res} loadFile={props.loadFile} />
-                    </>)
+                        <SearchResult index={index}result={res} loadFile={props.loadFile} />
+                    </React.Fragment>)
             })}
         </List>
     }

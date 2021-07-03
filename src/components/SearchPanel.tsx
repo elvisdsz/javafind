@@ -74,7 +74,7 @@ const SearchPanel:React.FC<SearchPanelProps> = ({show, loadFile, hideSearchPanel
                     <div className="search-result" onClick={stopEventPropagation}>
                         <ul>
                         {searchResults?.map( res => {
-                            return <li onClick={() => loadFile("http://localhost:8080/getFile?fp="+res.relFilepath)}>{res.groupId} {res.artifactId} {res.version}</li>
+                            return <li onClick={() => loadFile("http://localhost:8080/getFile?fp="/*+res.relFilepath*/)}>{res.groupId} {res.artifactId} {/*res.version*/}</li>
                         })}
                         </ul>
                     </div>
