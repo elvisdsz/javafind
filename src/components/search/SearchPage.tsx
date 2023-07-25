@@ -92,7 +92,7 @@ const SearchPage:React.FC<SearchPageProps> = (props) => {
     
     const resultsList = () => {
         return <List className={classes.resultList}>
-            <ListSubheader>Showing 10 of {searchResponse?.totalResultCount} results found</ListSubheader>
+            <ListSubheader>Showing {searchResponse?.artifacts?.length} of {searchResponse?.totalResultCount} results found</ListSubheader>
             {searchResponse?.artifacts?.map( (art, index) => {
                 return (<React.Fragment key={index}>
                         <Divider component="li" />
