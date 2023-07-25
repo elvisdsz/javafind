@@ -4,6 +4,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchBar from './SearchBar';
 import { PinDropSharp } from '@material-ui/icons';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => createStyles({
   toolbar: {
@@ -18,6 +19,11 @@ const useStyles = makeStyles((theme) => createStyles({
     [theme.breakpoints.up('sm')]: {
       display: 'flex',
     },
+  },
+  logoText: {
+    fontFamily: 'monospace',
+    textDecoration: 'none',
+    color: 'white',
   },
   
 }));
@@ -49,11 +55,11 @@ const NavBar:React.FC<NavBarProps> = (props) => {
       <AppBar position="static">
       <Toolbar variant="dense" className={classes.toolbar}>
         <Box display="flex" flex={1} alignItems="center" className={classes.brand}>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" style={{display: 'none'}}>
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            JavaFind
+          <Typography variant="h5" noWrap component={RouterLink} to="/" className={classes.logoText}>
+            &#123; JavaFind &#125;
           </Typography>
         </Box>
         <Box display="flex" flex={2}>
