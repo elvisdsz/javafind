@@ -90,7 +90,7 @@ const SearchResult:React.FC<SearchResultProps> = (props) => {
                 color="primary"
                 className={classes.button}
                 endIcon={<CodeIcon />}
-                component={RouterLink} to="/"
+                component={RouterLink} to="/code"
                 onClick={() => props.loadFile("http://localhost:8080/getFile?fp="+selectedVersionPath)}
             >
                View

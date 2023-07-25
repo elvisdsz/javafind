@@ -5,8 +5,9 @@ import FolderTree from './FolderTree';
 import SearchPanel from './SearchPanel';
 import NavBar from './NavBar';
 import { Backdrop, Box, CircularProgress, Divider, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory, RouteComponentProps, withRouter } from 'react-router-dom';
 import SearchPage from './search/SearchPage';
+import HomeDefault from './HomeDefault';
 
 const useStyles = makeStyles((theme) => ({
     rootBox: {
@@ -51,7 +52,6 @@ const Home:React.FC<HomeProps> = (props) => {
     const [selectedFilename, setSelectedFilename] = useState<string>("");
 
     const [showSearchPanel, setShowSearchPanel] = useState<boolean>(false);
-
     const [showLoading, setShowLoading] = useState<boolean>(false);
     
     const onFileSelectedToShow = (filename: string, fileText:string):void => {
@@ -93,7 +93,6 @@ const Home:React.FC<HomeProps> = (props) => {
 
                         //setShowSearchPanel(false);
                     });*/
-
             }
         ).finally(() => {
             setShowLoading(false);
@@ -114,23 +113,26 @@ const Home:React.FC<HomeProps> = (props) => {
             <Route path="/search">  {/*     Check https://reactrouter.com/web/guides/quick-start    */}
                 <SearchPage loadFile={loadFile} />
             </Route>
-            <Route path="/">
+            <Route path="/code">
+
                 <Box display="flex" flexGrow="1" overflow="auto">
 
                     <Backdrop className={classes.backdrop} open={showLoading}>
                         <CircularProgress color="inherit" />
                     </Backdrop>
 
-                    <SearchPanel show={showSearchPanel} loadFile={loadFile} hideSearchPanel={handleHideSearchPanel} />
+                    {/*<SearchPanel show={showSearchPanel} loadFile={loadFile} hideSearchPanel={handleHideSearchPanel} />*/}
                     
-                    <Paper style={{flex:3}} className={classes.longPaper/*+' '+classes.resizable*/} square>
-                    {/*</Box><Box  flex={{xs:3}} className={classes.longPaper}>*/}
+                    <Paper style={{flex:3}} className={classes.longPaper} square>
                         <FolderTree zipFile={mainFile!} showCodeCallback={onFileSelectedToShow} />
                     </Paper>
                     <Paper style={{flex:9}} className={classes.longPaper} square>
                         <CodeWindow codeText={codeText} language="java" filename={selectedFilename} />
                     </Paper>
                 </Box>
+            </Route>
+            <Route path="/">
+                <HomeDefault theme={props.theme}/>
             </Route>
         </Switch>
     </Box>

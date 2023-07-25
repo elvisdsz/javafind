@@ -29,6 +29,7 @@ interface SearchPanelProps {
     hideSearchPanel: ()=>void
 }
 
+/* Deprecated. Soon to be removed. */
 const SearchPanel:React.FC<SearchPanelProps> = ({show, loadFile, hideSearchPanel}) => {
 
     const classes = useStyles();
