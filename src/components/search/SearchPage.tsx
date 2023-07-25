@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { SearchResultIF } from '../../interface/SearchResultIF';
 import { useLocation, Link as RouterLink, Redirect, useHistory } from 'react-router-dom';
 import SearchResult from './SearchResult';
+import { SearchResponseIF } from '../../interface/SearchResponseIF';
 
 const useStyles = makeStyles((theme) => ({
     /*searchPaper: {
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface LocationState { //extends RouteComponentProps<QueryParams> {
-    searchResults: SearchResultIF[],
+    searchResponse: SearchResponseIF,
     search: string, // query string
 }
 
@@ -54,7 +55,7 @@ const SearchPage:React.FC<SearchPageProps> = (props) => {
     const location = useLocation<LocationState>();
     const history = useHistory();
 
-    const [searchResults, setSearchResults] = useState<SearchResultIF[]>();
+    const [searchResponse, setSearchResponse] = useState<SearchResponseIF>();
     const [showLoading, setShowLoading] = useState(false);
 
     console.log("Received loc state:", location.state);
@@ -74,8 +75,8 @@ const SearchPage:React.FC<SearchPageProps> = (props) => {
             fetch(`http://localhost:8080/searcha?q=${encodeURIComponent(pathQuery!)}`)
             .then(res => res.json())
             .then(
-                (result:SearchResultIF[]) => {
-                        setSearchResults(result); 
+                (response:SearchResponseIF) => {
+                        setSearchResponse(response);
                     },
                 (error) => {console.log("Error Occurred: "+error)}
             )
@@ -83,7 +84,7 @@ const SearchPage:React.FC<SearchPageProps> = (props) => {
                 setShowLoading(false);
             });
         } else {
-            setSearchResults(location.state.searchResults);
+            setSearchResponse(location.state.searchResponse);
         }
         
     }, [history, location.search, location.state]);
@@ -91,11 +92,11 @@ const SearchPage:React.FC<SearchPageProps> = (props) => {
     
     const resultsList = () => {
         return <List className={classes.resultList}>
-            <ListSubheader>Showing 10 of 512 results found</ListSubheader>
-            {searchResults?.map( (res, index) => {
+            <ListSubheader>Showing 10 of {searchResponse?.totalResultCount} results found</ListSubheader>
+            {searchResponse?.artifacts?.map( (art, index) => {
                 return (<React.Fragment key={index}>
                         <Divider component="li" />
-                        <SearchResult index={index}result={res} loadFile={props.loadFile} />
+                        <SearchResult index={index} result={art} loadFile={props.loadFile} />
                     </React.Fragment>)
             })}
         </List>
